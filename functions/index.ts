@@ -7,7 +7,7 @@ const imageB =
 export const onRequestGet: PagesFunction = async ({ env, request }) => {
   const response = await env.ASSETS.fetch(request);
   const resp = new Response(response.body, response);
-  resp.headers.append('Expire', '0');
+  resp.headers.append('Cache-Control', 'no-cache');
 
   const imageURL = Math.random() > 0.5 ? imageA : imageB;
 
