@@ -6,8 +6,8 @@ const imageB =
 
 export const onRequest: PagesFunction = async ({ env, request }) => {
   const response = await env.ASSETS.fetch(request);
-  const resp = response.clone();
-  resp.headers.set('Expire', '0');
+  const resp = new Response(response.body, response);
+  resp.headers.append('Expire', '0');
 
   const imageURL = Math.random() > 0.5 ? imageA : imageB;
 
