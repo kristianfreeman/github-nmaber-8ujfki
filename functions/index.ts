@@ -6,6 +6,8 @@ const imageB =
 
 export const onRequestGet: PagesFunction = async ({ env, request }) => {
   const response = await env.ASSETS.fetch(request);
+  const resp = new Response(response.body, response);
+  resp.headers.append('Expire', '0');
 
   const imageURL = Math.random() > 0.5 ? imageA : imageB;
 
@@ -15,5 +17,5 @@ export const onRequestGet: PagesFunction = async ({ env, request }) => {
         body.append(`<img src="${imageURL}" />`, { html: true });
       },
     })
-    .transform(response);
+    .transform(resp);
 };
